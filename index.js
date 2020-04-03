@@ -13,7 +13,7 @@ if (!config.get('jwtPrivateKey')) {
     process.exit(1);
 }
 
-mongoose.connect('mongodb://localhost:27017/mongo', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://admin:qwerty123@cluster0-s1oxb.mongodb.net/task-manager?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to mongoDB...'))
     .catch(err => console.log('Could not connect to MongoDB...', err));
 
