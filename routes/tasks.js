@@ -1,18 +1,11 @@
 const auth = require('../middleware/auth');
-const {Task, validate} = require('../models/task');
 const express = require('express');
 const router = express.Router();
+const controller = require('../controllers/task-controller.js');
 
-router.post('/', auth, async (req, res) => {
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    let task = await Task.findOne({ text: req.body.text });
-    if (task) return res.status(400).send('This task already exists.');
-
-    task = new Task(req.body, ['text', 'creationDate', 'dueDate', 'priority', 'isCompleted','endDate' ]);
-    await task.save();
-    res.send(task);
-});
+router.post('/', auth, controller.newTask);
+router.get('/:id', controller.getTask);
+router.put('/:id', controller.updateTask);
+router.delete('/:id', controller.deleteTask);
 
 module.exports = router;
