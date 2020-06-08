@@ -14,12 +14,12 @@ const Task = mongoose.model('Task', new mongoose.Schema({
     },
     dueDate: {
         type: Date,
-        required: true
+        required: false
     },
     priority: {
         type: Number,
         default: 0,
-        required: true
+        required: false
     },
     isCompleted: {
         type: Boolean,
@@ -27,7 +27,7 @@ const Task = mongoose.model('Task', new mongoose.Schema({
     },
     endDate: { 
         type: Date,
-        required: true
+        required: false
     }
 }));
 
@@ -35,10 +35,10 @@ function validateTask(task) {
     const schema = {
         text: Joi.string().min(5).max(2048).required(),
         creationDate: Joi.date().required(),
-        dueDate: Joi.date().required(),
-        priority: Joi.number().default(0).required(),
+        dueDate: Joi.date(),
+        priority: Joi.number().default(0),
         isCompleted: Joi.boolean().required(),
-        endDate: Joi.date().required(),
+        endDate: Joi.date(),
     };
     return Joi.validate(task, schema);
 }
